@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Mac Forensics Triage Script - Comprehensive Version
+# Mac Forensics Triage Script
 # Author: Fulco
 # Version: 0.1a
 
@@ -126,6 +126,22 @@ hash_binaries() {
     md5 /usr/sbin/* >> "$OUTPUT_DIR/bin_hashes.txt"
 }
 
+# Function to zip the resultant directory and clean up
+zip_and_cleanup() {
+    echo "Zipping the resultant directory..."
+    ZIP_FILE="$HOME/${OUTPUT_DIR##*/}.zip"
+    zip -r "$ZIP_FILE" "$OUTPUT_DIR"
+    
+    if [ -f "$ZIP_FILE" ] && [ -s "$ZIP_FILE" ]; then
+        echo "Zipped file saved as $ZIP_FILE"
+        echo "Cleaning up temporary directory..."
+        rm -rf "$OUTPUT_DIR"
+        echo "Temporary directory cleaned up"
+    else
+        echo "Zip file creation failed or the zip file is empty. Not deleting the temporary directory."
+    fi
+}
+
 # Main function to call all other functions
 main() {
     collect_system_info
@@ -140,15 +156,9 @@ main() {
     collect_security_settings
     capture_clipboard_data
     hash_binaries
-    echo "Forensics data collection complete. Data saved in $OUTPUT_DIR"
+    zip_and_cleanup
+    echo "Forensics data collection complete."
 }
 
 # Execute the main function
 main
-# Zip the resultant directory
-echo "Zipping the resultant directory..."
-zip -r "../$OUTPUT_DIR.zip" "$OUTPUT_DIR"
-echo "Zipped file saved as $OUTPUT_DIR.zip"
-# Clean up the temporary directory
-rm -rf "$OUTPUT_DIR"
-echo "Temporary directory cleaned up"

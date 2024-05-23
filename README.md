@@ -16,6 +16,7 @@
 - Checks security settings (SIP, FileVault, Gatekeeper)
 - Captures clipboard data
 - Hashes important binaries and system files
+- Zips the collected data and cleans up the temporary directory
 
 ## Usage
 
@@ -55,7 +56,9 @@ Run the script with root privileges:
 sudo ./macTriage.sh
 ```
 
-The script will create a directory in `/tmp` with the collected forensic data. The directory name will include the date and time the script was run, for example: `/tmp/mac_forensics_20240523_153000`.
+The script will create a directory in `/tmp` with the collected forensic data. The directory name will include the date and time the script was run, for example: `/tmp/mac_forensics_(date +%Y%m%d_%H%M%S)`.
+
+Once the data is collected, the script will zip the directory and save it as `/tmp/mac_forensics_(date +%Y%m%d_%H%M%S).zip`. The temporary directory will then be cleaned up.
 
 ## Output
 
