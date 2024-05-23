@@ -108,10 +108,4 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 For any questions or feedback, please reach out to [Fulco] at [security@fulco.net].
 
----
-
-This README provides an overview of the macTriage script, how to use it, and what output to expect. Feel free to customize it further based on your preferences and specific details.
-
----ß
-
 ### Tested on MacOS Sonoma 14.5
